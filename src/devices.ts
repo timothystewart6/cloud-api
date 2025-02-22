@@ -48,6 +48,8 @@ export const Retrieve = async (req: express.Request, res: express.Response) => {
   return res.status(200).json({ device });
 };
 
+
+
 export const Update = async (req: express.Request, res: express.Response) => {
   const idToken = req.session?.id_token;
   const { sub } = jose.decodeJwt(idToken);
