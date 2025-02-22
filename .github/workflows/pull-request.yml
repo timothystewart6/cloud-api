@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - dev
+      - techno-dev
     paths-ignore:
       - .gitignore
       - README.md
