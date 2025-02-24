@@ -10,7 +10,7 @@
     "build:prod": "tsc"
   },
   "engines": {
-    "node": "21.1.0"
+    "node": "22.14.0"
   },
   "keywords": [],
   "author": "",
