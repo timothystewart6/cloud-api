@@ -17,6 +17,8 @@ CMD ["sh", "-c", "npm run dev"]
 # Production Stage 
 FROM node:22.14.0-alpine AS prod
 WORKDIR /app
+# Install OpenSSL 1.1 for Prisma compatibility
+RUN apk add --no-cache openssl1.1-compat
 COPY --from=dev /app/dist ./dist
 COPY --from=dev /app/prisma ./prisma
 COPY --from=dev /app/package.json ./
