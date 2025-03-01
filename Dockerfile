@@ -1,5 +1,5 @@
 # Base Stage
-FROM node:22.14.0-alpine AS base
+FROM node:22.14.0-alpine3.18  AS base
 WORKDIR /app
 COPY package.json package-lock.json ./
 
@@ -15,7 +15,7 @@ RUN npm run build:prod
 CMD ["sh", "-c", "npm run dev"]
 
 # Production Stage 
-FROM node:22.14.0-alpine AS prod
+FROM node:22.14.0-alpine3.18 AS prod
 WORKDIR /app
 # Install OpenSSL 1.1 for Prisma compatibility
 RUN apk add --no-cache openssl1.1-compat
