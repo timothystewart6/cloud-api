@@ -11,16 +11,18 @@ export const activeConnections: Map<string, [WebSocket, string]> = new Map();
 export const inFlight: Set<string> = new Set();
 
 
-function toICEServers(str: string) {
-  return str.split(",")
+function toICEServers(str: string)  {
+  return str
+    .split(",")
     .map(url => url.trim())
     .filter(url => url.startsWith("stun:"))
+    .filter((url, index, self) => self.indexOf(url) === index)
+    .map(url => ({ urls: url }));
 }
 
-export const iceServers = toICEServers(
+export const iceServers  = toICEServers(
   process.env.ICE_SERVERS || "stun:stun.cloudflare.com:3478,stun:stun.l.google.com:19302,stun:stun1.l.google.com:5349"
 );
-
 export const CreateSession = async (req: express.Request, res: express.Response) => {
   const idToken = req.session?.id_token;
   const { sub } = jose.decodeJwt(idToken);
