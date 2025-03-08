@@ -10,14 +10,15 @@ import { Device } from "@prisma/client/wasm";
 export const activeConnections: Map<string, [WebSocket, string]> = new Map();
 export const inFlight: Set<string> = new Set();
 
+
 function toICEServers(str: string) {
-  return str.split(",").filter(
-    (url) => url.startsWith("stun:")
-  );
+  return str.split(",")
+    .map(url => url.trim())
+    .filter(url => url.startsWith("stun:"))
 }
 
 export const iceServers = toICEServers(
-  process.env.ICE_SERVERS || "stun.cloudflare.com:3478,stun:stun.l.google.com:19302,stun:stun1.l.google.com:5349"
+  process.env.ICE_SERVERS || "stun:stun.cloudflare.com:3478,stun:stun.l.google.com:19302,stun:stun1.l.google.com:5349"
 );
 
 export const CreateSession = async (req: express.Request, res: express.Response) => {
